@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import messagebox
+from tkinter.scrolledtext import ScrolledText
 raiz=Tk()
 
 miFrame=Frame(raiz,width=1200,height=600)
@@ -18,6 +20,13 @@ cuadroPassword.config(show="*")
 cuadroDireccion=Entry(miFrame)
 cuadroDireccion.grid(row=3,column=1)
 
+textoComentarios=Text(miFrame,width=16,height=5)
+textoComentarios.grid(row=4,column=1)
+scrollVert=Scrollbar(miFrame,command=textoComentarios.yview)
+scrollVert.grid(row=4,column=2,sticky="nwse")
+
+textoComentarios.config(yscrollcommand=scrollVert.set)
+
 nombreLabel=Label(miFrame,text="Nombre")
 nombreLabel.grid(row=0,column=0,sticky="w", padx="5",pady="1")
 
@@ -30,17 +39,19 @@ passwordLabel.grid(row=2,column=0,sticky="w", padx="5",pady="1")
 direccionLabel=Label(miFrame,text="Direccion")
 direccionLabel.grid(row=3,column=0,sticky="w", padx="5",pady="1")
 
-def alternar_visibilidad():
-    # Verificamos qué valor tiene actualmente 'show'
-    if cuadroPassword.cget('show') == '*':
-        cuadroPassword.config(show='')  # Muestra el texto real
-        btn_mostrar.config(text='Ocultar')
-    else:
-        cuadroPassword.config(show='*')  # Oculta con asteriscos
-        btn_mostrar.config(text='Mostrar')
+comentariosLabel=Label(miFrame,text="Comentarios")
+comentariosLabel.grid(row=4,column=0,sticky="w", padx="5",pady="1")
 
-btn_mostrar =raiz.Button(raiz, text="Mostrar", command=alternar_visibilidad)
-btn_mostrar.pack()
+
+def mostrarMensaje():
+
+    messagebox.showinfo(message="Este es un mensaje", title="Atención")
+
+botonEnvio=Button(raiz,text="Enviar",command=mostrarMensaje)
+# botonEnvio.grid(row=5,column=1)
+# botonEnvio.config(justify="center")
+botonEnvio.pack()
+
 
 raiz.mainloop()
 
